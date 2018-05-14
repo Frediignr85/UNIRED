@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp">
+
+    <RelativeLayout
+        android:id="@+id/message_root"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/color_mensaje">
+
+        <TextView
+            android:id="@+id/textView_message_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxWidth="250dp"
+            android:minWidth="120dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+            android:textSize="16dp"
+            tools:text="Nombre:" />
+
+        <TextView
+            android:id="@+id/textView_message_time"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/textView_message_text"
+            android:layout_below="@id/textView_message_text"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            tools:text="3/15/2018 3:00 PM" />
+
+        <TextView
+            android:id="@+id/Publicacion"
+            android:layout_width="212dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/textView_message_text"
+            android:layout_below="@id/textView_message_text"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:textSize="20sp"
+            tools:text="3/15/2018 3:00 PM" />
+    </RelativeLayout>
+</FrameLayout>

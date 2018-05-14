@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragmentos.FragmentoPublicaciones">
+
+
+    <Button
+        android:id="@+id/btnPublicar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="100dp"
+        android:text="Publicar" />
+
+    <EditText
+        android:id="@+id/textPublicacion"
+        android:layout_width="274dp"
+        android:layout_height="67dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="20dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/VistaReciclablePublicaciones"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="160dp"></android.support.v7.widget.RecyclerView>
+
+</FrameLayout>
