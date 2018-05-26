@@ -67,9 +67,8 @@ object FirestoreUtil {
 
 
 
-    private val chatChannelsCollectionRef = firstoreInstance.collection("Canal de Mensajes")
+    private val chatChannelsCollectionRef = firstoreInstance.collection("CanaldeMensajes")
 
-    private val canalPublicacionesColeccion = firstoreInstance.collection("Canal de Publicaciones")
 
     fun getOrCreateChatChannel(otherUserId: String,
                                onComplete: (channelId: String) -> Unit) {
@@ -133,6 +132,20 @@ object FirestoreUtil {
         }
         if (fotoDePerfil != null) {
             userFieldMap["fotoDePerfil"] = fotoDePerfil
+        }
+        currentUserRef.update(userFieldMap)
+    }
+
+    fun updatePublicacionesNuevas(Nombre: String = "", estado: String = "", foto: String? = null) {
+        val userFieldMap = mutableMapOf<String, Any>()
+        if (Nombre.isNotBlank()) {
+            userFieldMap["nombre"] = Nombre
+        }
+        if (estado.isNotBlank()) {
+            userFieldMap["estado"] = estado
+        }
+        if (foto != null) {
+            userFieldMap["fotoDePerfil"] = foto
         }
         currentUserRef.update(userFieldMap)
     }

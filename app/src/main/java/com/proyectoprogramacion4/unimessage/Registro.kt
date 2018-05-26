@@ -26,6 +26,7 @@ class Registro : AppCompatActivity() {
                     .setRequireName(true)
                     .build())
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
@@ -37,6 +38,8 @@ class Registro : AppCompatActivity() {
                     .build()
             startActivityForResult(intent, RC_SIGN_IN)
         }
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -15,10 +15,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ListenerRegistration
-import com.proyectoprogramacion4.unimessage.modelo.Mensaje
-import com.proyectoprogramacion4.unimessage.modelo.MensajeDeImagen
-import com.proyectoprogramacion4.unimessage.modelo.MensajeDeTexto
-import com.proyectoprogramacion4.unimessage.modelo.MessageType
+import com.proyectoprogramacion4.unimessage.modelo.*
 import com.proyectoprogramacion4.unimessage.util.FirestoreUtil
 import com.proyectoprogramacion4.unimessage.util.StorageUtil
 import com.xwray.groupie.GroupAdapter
@@ -37,11 +34,8 @@ class ChatActivity : AppCompatActivity() {
     private var shouldInitRecyclerView = true
     private lateinit var messagesSection: Section
     private lateinit var currentChannelId: String
-
-
-
-
-
+    private lateinit var currentUser: usuario
+    private lateinit var otherUserId:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +43,13 @@ class ChatActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = intent.getStringExtra(ConstantesAplicacion.NOMBRE_USUARIO)
+        FirestoreUtil.getCurrentUser {
+            currentUser = it
+        }
 
 
-        val otherUserId = intent.getStringExtra(ConstantesAplicacion.ID_USUARIO)
+
+        otherUserId = intent.getStringExtra(ConstantesAplicacion.ID_USUARIO)
         FirestoreUtil.getOrCreateChatChannel(otherUserId) { channelId ->
             currentChannelId = channelId
             messagesListenerRegistration =
@@ -62,7 +60,7 @@ class ChatActivity : AppCompatActivity() {
             imageView_send.setOnClickListener {
                 val messageToSend =
                         MensajeDeTexto(editText_message.text.toString(), Calendar.getInstance().time,
-                                FirebaseAuth.getInstance().currentUser!!.uid, MessageType.TEXT)
+                                FirebaseAuth.getInstance().currentUser!!.uid, otherUserId, currentUser.nombre)
 
                 editText_message.setText("")
                 FirestoreUtil.enviarMensaje(messageToSend, channelId)
@@ -74,7 +72,7 @@ class ChatActivity : AppCompatActivity() {
                 val intent = Intent().apply {
                     type = "image/*"
                     action = Intent.ACTION_GET_CONTENT
-                    putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
+                    putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png", "image/apk"))
                 }
                 startActivityForResult(Intent.createChooser(intent, "Select Image"), RC_SELECT_IMAGE)
             }
@@ -96,7 +94,7 @@ class ChatActivity : AppCompatActivity() {
             StorageUtil.uploadMessageImage(selectedImageBytes) { imagePath ->
                 val messageToSend =
                         MensajeDeImagen(imagePath, Calendar.getInstance().time,
-                                FirebaseAuth.getInstance().currentUser!!.uid)
+                                FirebaseAuth.getInstance().currentUser!!.uid, otherUserId, currentUser.nombre)
                 FirestoreUtil.enviarMensaje(messageToSend, currentChannelId)
             }
         }

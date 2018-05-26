@@ -60,6 +60,7 @@ class FragmentoCuenta : Fragment() {
                     StorageUtil.uploadProfilePhoto(selectedImageByte)
                     {
                         imagePath ->  FirestoreUtil.updateCurrentUser(editText_name.text.toString(), editText_bio.text.toString(), imagePath)
+                        toast("Guardado")
                     }
                 }
                 else
