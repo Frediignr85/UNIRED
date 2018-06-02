@@ -45,7 +45,7 @@
             android:text="Esto es una prueba, aqui ira el contenido de las publicaciones que realizara el usuario" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/imagenPublicacion"
             android:layout_width="match_parent"
             android:layout_height="171dp"
             app:srcCompat="@android:drawable/btn_dialog" />

@@ -1,8 +1,10 @@
 package com.proyectoprogramacion4.unimessage.util
 
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import org.jetbrains.anko.support.v4.toast
 import java.util.*
 
 object StorageUtil {
@@ -28,15 +30,17 @@ object StorageUtil {
                     onSuccess(ref.path)
                 }
     }
+    var DescargarURL: String? = null
 
-    fun uploadPublicaciones(imageBytes: ByteArray,
+    fun uploadPublicacionesImagenes (imageBytes: ByteArray,
                            onSuccess: (imagePath: String) -> Unit) {
-        val ref = currentUserRef.child("publicaciones/${UUID.nameUUIDFromBytes(imageBytes)}")
+        val ref = currentUserRef.child("publicacionesImagenes/${UUID.nameUUIDFromBytes(imageBytes)}")
         ref.putBytes(imageBytes)
-                .addOnSuccessListener {
-                    onSuccess(ref.path)
+                .addOnSuccessListener {taskSnapshot ->
+                    DescargarURL = taskSnapshot.downloadUrl!!.toString()
                 }
     }
+
 
     fun pathToReference(path: String) = storageInstance.getReference(path)
 }

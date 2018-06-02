@@ -16,6 +16,7 @@
             android:layout_height="99dp"
             android:ems="10"
             android:hint="Escribe tu publicacion"
+            android:background="@drawable/escribirpublicacion"
             android:inputType="textPersonName" />
 
         <LinearLayout
@@ -26,17 +27,22 @@
 
             <ImageView
                 android:id="@+id/ImagenPublicarImagen"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                app:srcCompat="@android:drawable/ic_menu_gallery" />
+                app:srcCompat="@android:drawable/ic_menu_gallery"
+                android:background="@drawable/botonagregarimagenpublicacion"/>
 
             <ImageView
-                android:id="@+id/ImagenEnviar"
-                android:layout_width="106dp"
-                android:layout_height="wrap_content"
+                android:id="@+id/CompartirPublicacion"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                app:srcCompat="@android:drawable/ic_menu_send" />
+                app:srcCompat="@android:drawable/ic_menu_send"
+                android:background="@drawable/botonagregarpublicacion"
+                />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -45,6 +51,8 @@
             android:orientation="vertical">
         </LinearLayout>
 
+
     </LinearLayout>
+
 
 </LinearLayout>

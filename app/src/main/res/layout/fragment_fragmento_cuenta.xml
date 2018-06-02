@@ -1,94 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragmentos.FragmentoCuenta">
+    tools:context=".fragmentos.FragmentoCuenta"
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:id="@+id/imageView_profile_picture"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:src="@drawable/ic_home_black_24dp" />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:background="@drawable/degradado2"
+           android:orientation="vertical">
 
-    <android.support.design.widget.TextInputEditText
-        android:id="@+id/editText_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="32dp"
-        android:hint="Nombre"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView_profile_picture"
-        app:layout_constraintVertical_bias="0.025" />
+           <ImageView
+               android:id="@+id/imageView_profile_picture"
+               android:layout_width="125dp"
+               android:layout_height="125dp"
+               android:layout_gravity="center_horizontal"
+               android:layout_margin="45dp"
+               android:foregroundGravity="left"
+               android:src="@drawable/ic_account_circle_black_24dp" />
+           <EditText
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/editText_name"
+               android:layout_gravity="center_horizontal"
+               android:layout_marginTop="0dp"
+               android:textColor="#fff"
+               android:textStyle="bold"
+               android:hint="Nombre"
+               android:textSize="30dp"/>
 
-    <android.support.design.widget.TextInputEditText
-        android:id="@+id/editText_bio"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:maxHeight="150dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:hint="Mi estado"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editText_name"
-        app:layout_constraintVertical_bias="0.042" />
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="center_horizontal">
+               <EditText
+                   android:id="@+id/editText_bio"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_gravity="center_horizontal"
+                   android:layout_marginTop="0dp"
+                   android:hint="Estado"
+                   android:paddingTop="25dp"
+                   android:textColor="#fff"
+                   android:textSize="30dp"
+                   android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Guardar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.971"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982" />
+           </LinearLayout>
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:paddingTop="400dp">
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center_horizontal"
+               android:background="@drawable/botoncerrarsesion"
+               android:text="Cerrar Sesion"
+               android:id="@+id/btn_sign_out"
+               android:layout_marginLeft="30dp"
+               android:layout_marginTop="5dp"
+               android:textColor="#fff"/>
 
-    <Button
-        android:id="@+id/btn_sign_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Cerrar Sesion"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.028"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982" />
+           <Button
+               android:id="@+id/btn_save"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center_horizontal"
+               android:background="@drawable/botonguardarcambios"
+               android:text="Guardar"
+               android:layout_marginLeft="70dp"
+               android:layout_marginTop="5dp"
+               android:textColor="#fff"/>
+       </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+   </RelativeLayout>
+
+
+</LinearLayout>

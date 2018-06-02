@@ -64,7 +64,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_image_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_account_box_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -74,8 +74,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="3bff10" />
-                            <entry key="outputName" value="imagen" />
+                            <entry key="color" value="ffbeea" />
+                            <entry key="outputName" value="ic_account_box_black_24dp" />
                             <entry key="sourceFile" value="C:\Users\Fredy" />
                           </map>
                         </option>
