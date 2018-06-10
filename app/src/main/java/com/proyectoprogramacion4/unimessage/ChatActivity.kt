@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ListenerRegistration
+import com.proyectoprogramacion4.unimessage.R.id.imageView_send
+import com.proyectoprogramacion4.unimessage.R.id.recycler_view_messages
 import com.proyectoprogramacion4.unimessage.modelo.*
 import com.proyectoprogramacion4.unimessage.util.FirestoreUtil
 import com.proyectoprogramacion4.unimessage.util.StorageUtil

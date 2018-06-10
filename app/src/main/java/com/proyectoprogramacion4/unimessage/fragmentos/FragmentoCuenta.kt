@@ -68,6 +68,8 @@ class FragmentoCuenta : Fragment() {
                     FirestoreUtil.updateCurrentUser(editText_name.text.toString(), editText_bio.text.toString(), null)
                     toast("Guardado")
                 }
+
+
             }
             btn_sign_out.setOnClickListener{
                 AuthUI.getInstance()

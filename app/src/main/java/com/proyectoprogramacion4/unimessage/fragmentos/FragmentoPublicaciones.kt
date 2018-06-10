@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,19 +19,23 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.proyectoprogramacion4.unimessage.InformacionPublicacion
 import com.proyectoprogramacion4.unimessage.Publicacion
 import com.proyectoprogramacion4.unimessage.R
+import com.proyectoprogramacion4.unimessage.modelo.usuario
+import com.proyectoprogramacion4.unimessage.vista_reciclabe.items.Contacto
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.agregar_nueva_publicacion.view.*
 import kotlinx.android.synthetic.main.formato_publicaciones.view.*
 import kotlinx.android.synthetic.main.fragment_fragmento_publicaciones.*
 import org.jetbrains.anko.support.v4.toast
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
 
 
 class FragmentoPublicaciones : Fragment() {
@@ -40,7 +45,17 @@ class FragmentoPublicaciones : Fragment() {
     private val currentUserRef: StorageReference
         get() = storageInstance.reference
                 .child(FirebaseAuth.getInstance().currentUser?.uid
-                        ?: throw NullPointerException("UID is null."))
+                        ?: throw NullPointerException("UID esta vacio."))
+
+
+    var db = FirebaseFirestore.getInstance()
+
+
+    private val firstoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+    private val currentUserRef1: DocumentReference
+        get() = firstoreInstance.document("users/${FirebaseAuth.getInstance().currentUser?.uid
+                ?: throw NullPointerException("UID esta vacio")}")
+
 
     private var database = FirebaseDatabase.getInstance()
     private var myReferencia = database.reference
@@ -68,7 +83,7 @@ class FragmentoPublicaciones : Fragment() {
 
 
 
-        ListaPublicaciones.add(Publicacion("0", "Hola a todo el mundo", "URL", "add"))
+        ListaPublicaciones.add(Publicacion("0", "", "", "Hola a todo el mundo", "URL", "add", ""))
 
 
 
@@ -108,36 +123,40 @@ class FragmentoPublicaciones : Fragment() {
                     }
                     startActivityForResult(Intent.createChooser(intent, "Imagen Seleccionada"), RC_SELECT_IMAGE)
                 })
-
                 miVista.CompartirPublicacion.setOnClickListener(View.OnClickListener {
+
+                    val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
                     if (::selectedImageByte.isInitialized) {
+                        var Nombre: String? = null
+                        var FotoDePerfil: String? = null
 
 
                         myReferencia.child("Post").push().setValue(InformacionPublicacion(FirebaseAuth.getInstance().currentUser!!.uid,
-                                miVista.TextoPublicacion.text.toString(), DescargarURL.toString()))
-
-
+                                FirebaseAuth.getInstance().currentUser!!.photoUrl.toString(),
+                                FirebaseAuth.getInstance().currentUser!!.email.toString(),
+                                miVista.TextoPublicacion.text.toString(), DescargarURL.toString(), date.toString()))
                     } else {
-                        myReferencia.child("Post").push().setValue(InformacionPublicacion(FirebaseAuth.getInstance().currentUser!!.uid,
-                                miVista.TextoPublicacion.text.toString(), "Null"))
+                        myReferencia.child("Post").push().setValue(InformacionPublicacion(FirebaseAuth.getInstance().currentUser!!.uid
+                                , FirebaseAuth.getInstance().currentUser!!.photoUrl.toString(),
+                                FirebaseAuth.getInstance().currentUser!!.email.toString(),
+                                miVista.TextoPublicacion.text.toString(), "Null", date.toString()))
                     }
                 })
-
-
-
                 return miVista
             } else {
+                var nombre:String? = null
                 var miVista = layoutInflater.inflate(R.layout.formato_publicaciones, null)
                 miVista.txtContenidoPublicacion.setText(miPublicacion.TextoPublicacion)
                 miVista.txt_NombreUsuario_Publicacion.setText(miPublicacion.IdPersonaPublicacion)
                 //miVista.imagenPublicacion.setImageURI(miPublicacion.URLImagenPublicacion)
-                Picasso.with(context).load(miPublicacion.URLImagenPublicacion).into(miVista.imagenPublicacion );
+                Picasso.with(context).load(miPublicacion.URLImagenPublicacion).into(miVista.imagenPublicacion)
+                Picasso.with(context).load(miPublicacion.URLFotoDePerfilPersona).into(miVista.imagenPath)
+                miVista.txt_NombreUsuario_Publicacion.setText(miPublicacion.NombrePersona)
+                miVista.txtFecha_publicacion.setText(miPublicacion.Fecha)
 
                 return miVista
-
             }
         }
-
 
         override fun getItem(p0: Int): Any {
             return listaDeAdaptadorDeNotas[p0]
@@ -196,30 +215,33 @@ class FragmentoPublicaciones : Fragment() {
         return split[0]
     }
 
-    fun cargarPost(){
+    fun cargarPost() {
         myReferencia.child("Post")
-                .addValueEventListener(object : ValueEventListener{
+                .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot?) {
 
-                        try{
+                        try {
 
                             ListaPublicaciones.clear()
-                            ListaPublicaciones.add(Publicacion("0", "Hola a todo el mundo", "URL", "add"))
+                            ListaPublicaciones.add(Publicacion("0", "", "", "Hola a todo el mundo", "URL", "add", ""))
 
                             var td = dataSnapshot!!.value as HashMap<String, Any>
-                            for (llave in td.keys)
-                            {
+                            for (llave in td.keys) {
 
                                 var post = td[llave] as HashMap<String, Any>
                                 ListaPublicaciones.add(Publicacion(llave,
+                                        post["urlfotoDePerfilPersona"] as String,
+                                        post["nombrePersona"] as String,
                                         post["texto"] as String,
                                         post["imagenDelPost"] as String,
-                                        post["userUID"] as String))
+                                        post["userUID"] as String,
+                                        post["fecha"] as String))
 
                             }
 
                             adaptador!!.notifyDataSetChanged()
-                        }catch (ex:Exception){}
+                        } catch (ex: Exception) {
+                        }
                     }
 
                     override fun onCancelled(p0: DatabaseError?) {

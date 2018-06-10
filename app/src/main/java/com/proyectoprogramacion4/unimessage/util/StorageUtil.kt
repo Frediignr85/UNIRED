@@ -40,7 +40,5 @@ object StorageUtil {
                     DescargarURL = taskSnapshot.downloadUrl!!.toString()
                 }
     }
-
-
     fun pathToReference(path: String) = storageInstance.getReference(path)
 }

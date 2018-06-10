@@ -32,6 +32,9 @@ object FirestoreUtil {
         }
     }
 
+
+    private val chatChannelsCollectionRef = firstoreInstance.collection("CanaldeMensajes")
+
     fun addChatMessagesListener(channelId: String, context: Context,
                                 onListen: (List<Item>) -> Unit): ListenerRegistration {
         return chatChannelsCollectionRef.document(channelId).collection("messages")
@@ -46,12 +49,10 @@ object FirestoreUtil {
                     querySnapshot!!.documents.forEach {
                         if (it["type"] == MessageType.TEXT) {
                             items.add(ItemsMensajeDeTexto(it.toObject(MensajeDeTexto::class.java)!!, context))
-
                         } else
                         {
                             items.add(ItemsMensajeDeImagen(it.toObject(MensajeDeImagen::class.java)!!, context))
                         }
-
                         return@forEach
                     }
                     onListen(items)
@@ -66,8 +67,6 @@ object FirestoreUtil {
     }
 
 
-
-    private val chatChannelsCollectionRef = firstoreInstance.collection("CanaldeMensajes")
 
 
     fun getOrCreateChatChannel(otherUserId: String,
@@ -122,6 +121,31 @@ object FirestoreUtil {
     }
 
 
+
+    fun addPublicacionesListener(context: Context, idPersona: String) : ListenerRegistration {
+        return firstoreInstance.collection("users")
+                            .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                                if (firebaseFirestoreException != null) {
+                                    Log.e("FIRESTORE", "Users listener error.", firebaseFirestoreException)
+                                    return@addSnapshotListener
+                                }
+
+
+                                if (querySnapshot != null) {
+                        querySnapshot.documents.forEach {
+                            if (it.id == idPersona){
+
+                            }
+                        }
+                    }
+                }
+    }
+
+
+
+
+
+
     fun updateCurrentUser(nombre: String = "", estado: String = "", fotoDePerfil: String? = null) {
         val userFieldMap = mutableMapOf<String, Any>()
         if (nombre.isNotBlank()) {
@@ -153,6 +177,12 @@ object FirestoreUtil {
     fun getCurrentUser(onComplete: (usuario) -> Unit) {
         currentUserRef.get().addOnSuccessListener { onComplete(it.toObject(usuario::class.java)!!) }
     }
+
+    fun  getCurrentPublicacion(onComplete: (publicacion) -> Unit) {
+        currentUserRef.get().addOnSuccessListener { onComplete(it.toObject(publicacion::class.java)!!) }
+    }
+
+
 
 
     fun removerlistener(registration: ListenerRegistration) = registration.remove()
