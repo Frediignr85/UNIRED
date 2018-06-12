@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="UNIRED" />
+            android:label="UNIRED"
+            android:theme="@style/Otrotema"/>
         <activity
         android:name=".Registro"
         android:label="UNIRED"
@@ -40,7 +41,7 @@
         </activity>
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_message_black_24dp"/>
+            android:resource="@mipmap/icono_fondo"/>
         <service android:name=".Servicios.MiServicioDeMensajesDeFirebase">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>

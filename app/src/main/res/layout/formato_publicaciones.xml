@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="271dp"
+        android:layout_height="280dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -18,18 +18,19 @@
             <ImageView
                 android:id="@+id/imagenPath"
                 android:layout_width="61dp"
-                android:background="@drawable/degradado2"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/colorregistro"
                 app:srcCompat="@android:drawable/checkbox_on_background" />
 
             <TextView
                 android:id="@+id/txt_NombreUsuario_Publicacion"
                 android:layout_width="207dp"
-                android:background="@drawable/degradado2"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Nombre de usuario" />
+                android:background="@drawable/colorregistro"
+                android:text="Nombre de usuario"
+                android:textStyle="bold|italic" />
 
         </LinearLayout>
 
@@ -37,13 +38,15 @@
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/txtFecha_publicacion"
                 android:layout_width="wrap_content"
-                android:background="@drawable/colorregistro"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="05/04/2018" />
+                android:background="@drawable/colorregistro"
+                android:text="05/04/2018"
+                android:textStyle="bold|italic" />
 
         </LinearLayout>
 
@@ -52,7 +55,8 @@
             android:id="@+id/txtContenidoPublicacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Esto es una prueba, aqui ira el contenido de las publicaciones que realizara el usuario" />
+            android:text="Esto es una prueba, aqui ira el contenido de las publicaciones que realizara el usuario"
+            android:textStyle="bold|italic" />
 
         <ImageView
             android:id="@+id/imagenPublicacion"
@@ -62,7 +66,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical">
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

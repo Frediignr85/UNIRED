@@ -25,9 +25,8 @@ class MiServicioDeMensajesDeFirebase : FirebaseMessagingService() {
         if (vibrator.hasVibrator()) {
             vibrator.vibrate(time.toLong())
             Log.d("PELLODEBUG", "Vibrating $time milliseconds")
-            val pattern = longArrayOf(0,10,100)
+            val pattern = longArrayOf(0,350)
             vibrator.vibrate(pattern, 1)
-            vibrator.cancel()
         }
     }
 

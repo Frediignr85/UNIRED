@@ -14,10 +14,13 @@
             android:id="@+id/TextoPublicacion"
             android:layout_width="match_parent"
             android:layout_height="99dp"
-            android:ems="10"
-            android:hint="Escribe tu publicacion"
-            android:background="@drawable/escribirpublicacion"
-            android:inputType="textPersonName" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="0dp"
+            android:background="#e1f5fe"
+            android:hint="Escriba su publicacion"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +34,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 app:srcCompat="@android:drawable/ic_menu_gallery"
-                android:background="@drawable/botonagregarimagenpublicacion"/>
+                android:background="#00897b"/>
 
             <ImageView
                 android:id="@+id/CompartirPublicacion"
@@ -39,7 +42,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 app:srcCompat="@android:drawable/ic_menu_send"
-                android:background="@drawable/botonagregarpublicacion"
+                android:background="#00897b"
                 />
 
 
