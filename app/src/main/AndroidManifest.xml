@@ -40,7 +40,7 @@
         </activity>
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_home_black_24dp"/>
+            android:resource="@drawable/ic_message_black_24dp"/>
         <service android:name=".Servicios.MiServicioDeMensajesDeFirebase">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>

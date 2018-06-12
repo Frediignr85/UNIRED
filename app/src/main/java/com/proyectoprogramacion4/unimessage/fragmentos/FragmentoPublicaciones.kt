@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,11 +25,10 @@ import com.google.firebase.storage.StorageReference
 import com.proyectoprogramacion4.unimessage.InformacionPublicacion
 import com.proyectoprogramacion4.unimessage.Publicacion
 import com.proyectoprogramacion4.unimessage.R
-import com.proyectoprogramacion4.unimessage.modelo.usuario
-import com.proyectoprogramacion4.unimessage.vista_reciclabe.items.Contacto
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.agregar_nueva_publicacion.view.*
 import kotlinx.android.synthetic.main.formato_publicaciones.view.*
+import kotlinx.android.synthetic.main.formato_publicaciones_sin_imagen.view.*
 import kotlinx.android.synthetic.main.fragment_fragmento_publicaciones.*
 import org.jetbrains.anko.support.v4.toast
 import java.io.ByteArrayOutputStream
@@ -80,13 +78,6 @@ class FragmentoPublicaciones : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
-
-
-        ListaPublicaciones.add(Publicacion("0", "", "", "Hola a todo el mundo", "URL", "add", ""))
-
-
-
         adaptador = MiAdaptadorDePublicaciones(ListaPublicaciones)
         lista_publicaciones.adapter = adaptador
         cargarPost()
@@ -128,9 +119,6 @@ class FragmentoPublicaciones : Fragment() {
                     val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
                     if (::selectedImageByte.isInitialized) {
                         var Nombre: String? = null
-                        var FotoDePerfil: String? = null
-
-
                         myReferencia.child("Post").push().setValue(InformacionPublicacion(FirebaseAuth.getInstance().currentUser!!.uid,
                                 FirebaseAuth.getInstance().currentUser!!.photoUrl.toString(),
                                 FirebaseAuth.getInstance().currentUser!!.email.toString(),
@@ -143,18 +131,37 @@ class FragmentoPublicaciones : Fragment() {
                     }
                 })
                 return miVista
-            } else {
-                var nombre:String? = null
-                var miVista = layoutInflater.inflate(R.layout.formato_publicaciones, null)
-                miVista.txtContenidoPublicacion.setText(miPublicacion.TextoPublicacion)
-                miVista.txt_NombreUsuario_Publicacion.setText(miPublicacion.IdPersonaPublicacion)
-                //miVista.imagenPublicacion.setImageURI(miPublicacion.URLImagenPublicacion)
-                Picasso.with(context).load(miPublicacion.URLImagenPublicacion).into(miVista.imagenPublicacion)
-                Picasso.with(context).load(miPublicacion.URLFotoDePerfilPersona).into(miVista.imagenPath)
-                miVista.txt_NombreUsuario_Publicacion.setText(miPublicacion.NombrePersona)
-                miVista.txtFecha_publicacion.setText(miPublicacion.Fecha)
+            }
+            if (miPublicacion.IdPersonaPublicacion.equals("Cargando")) {
+                val Holaa = layoutInflater.inflate(R.layout.cargando_imagen, null)
+                return Holaa
+            }
+            else {
 
-                return miVista
+                if(miPublicacion.URLImagenPublicacion != "Null")
+                {
+                    var miVista2 = layoutInflater.inflate(R.layout.formato_publicaciones, null)
+                    miVista2.txtContenidoPublicacion.setText(miPublicacion.TextoPublicacion)
+                    Picasso.with(context).load(miPublicacion.URLImagenPublicacion).into(miVista2.imagenPublicacion)
+                    Picasso.with(context).load(miPublicacion.URLFotoDePerfilPersona).into(miVista2.imagenPath)
+                    miVista2.txt_NombreUsuario_Publicacion.setText(miPublicacion.NombrePersona)
+                    miVista2.txtFecha_publicacion.setText(miPublicacion.Fecha)
+
+                    return miVista2
+
+
+                }
+                else
+                {
+                    var sinImagen = layoutInflater.inflate(R.layout.formato_publicaciones_sin_imagen, null)
+                    sinImagen.TextoDeLaPublicacionn.setText(miPublicacion.TextoPublicacion)
+                    Picasso.with(context).load(miPublicacion.URLFotoDePerfilPersona).into(sinImagen.imagenPerfil)
+                    sinImagen.NombreUsuario.setText(miPublicacion.NombrePersona)
+                    sinImagen.FechaPublicacion.setText(miPublicacion.Fecha)
+
+                    return sinImagen
+                }
+
             }
         }
 
@@ -187,6 +194,9 @@ class FragmentoPublicaciones : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SELECT_IMAGE && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+
+            ListaPublicaciones.add(1, Publicacion("0", "", "", "Hola a todo el mundo", "URL", "Cargando", ""))
+            adaptador!!.notifyDataSetChanged()
             val selectedImagePath = data.data
             val selectedImagenBmp = MediaStore.Images.Media.getBitmap(activity?.contentResolver, selectedImagePath)
             val outputStream = ByteArrayOutputStream()
@@ -202,7 +212,9 @@ class FragmentoPublicaciones : Fragment() {
 
                         DescargarURL = taskSnapshot.downloadUrl!!.toString()
                         terminado = true
-                        toast("Ya puede realizar la publicacion")
+                        toast("Ya puede publicar")
+                        ListaPublicaciones.removeAt(1)
+                        adaptador!!.notifyDataSetChanged()
                     }
         }
 
