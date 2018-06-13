@@ -8,7 +8,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/VistaReciclableLayout"
         android:layout_width="match_parent"
-        android:background="#000000"
+        android:background="@drawable/botonagregarimagenpublicacion"
         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

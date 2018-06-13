@@ -70,10 +70,6 @@ class FragmentoPublicaciones : Fragment() {
     var adaptador: MiAdaptadorDePublicaciones? = null
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
-    }
 
 
     override fun onStart() {
@@ -116,18 +112,30 @@ class FragmentoPublicaciones : Fragment() {
                 })
                 miVista.CompartirPublicacion.setOnClickListener(View.OnClickListener {
 
-                    val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
+
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    val date = Date()
+                    val fecha = dateFormat.format(date)
                     if (::selectedImageByte.isInitialized) {
                         var Nombre: String? = null
                         myReferencia.child("Post").push().setValue(InformacionPublicacion(FirebaseAuth.getInstance().currentUser!!.uid,
                                 FirebaseAuth.getInstance().currentUser!!.photoUrl.toString(),
                                 FirebaseAuth.getInstance().currentUser!!.email.toString(),
-                                miVista.TextoPublicacion.text.toString(), DescargarURL.toString(), date.toString()))
+                                miVista.TextoPublicacion.text.toString(), DescargarURL.toString(), fecha.toString()))
                     } else {
-                        myReferencia.child("Post").push().setValue(InformacionPublicacion(FirebaseAuth.getInstance().currentUser!!.uid
-                                , FirebaseAuth.getInstance().currentUser!!.photoUrl.toString(),
-                                FirebaseAuth.getInstance().currentUser!!.email.toString(),
-                                miVista.TextoPublicacion.text.toString(), "Null", date.toString()))
+                        if (miVista.TextoPublicacion.text.toString() == "")
+                        {
+                            toast("Publicacion invalida")
+                        }
+                        else
+                        {
+                            myReferencia.child("Post").push().setValue(InformacionPublicacion(FirebaseAuth.getInstance().currentUser!!.uid
+                                    , FirebaseAuth.getInstance().currentUser!!.photoUrl.toString(),
+                                    FirebaseAuth.getInstance().currentUser!!.email.toString(),
+                                    miVista.TextoPublicacion.text.toString(), "Null", fecha.toString()))
+                            toast("Publicacion Realizada")
+                        }
+
                     }
                 })
                 return miVista
